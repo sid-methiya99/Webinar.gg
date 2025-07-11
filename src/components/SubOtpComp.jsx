@@ -1,6 +1,6 @@
-export const OtpComp = ({ onInput }) => {
+export const SubOtpComp = ({ onInput }) => {
    return (
-      <div className="flex justify-center">
+      <div className="flex justify-center mr-1">
          <input
             type="number"
             min="0"

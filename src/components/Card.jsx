@@ -3,7 +3,6 @@ import Logo from '../assets/loginLogo.svg'
 import { Input } from './Input'
 import { Button } from './Button'
 import { useEffect, useState } from 'react'
-import { OtpComp } from './OtpComp'
 
 export const Card = ({
    step,
@@ -46,16 +45,12 @@ export const Card = ({
                <></>
             )}
 
-            {step === 'otp' ? (
-               <OtpComp onInput={onInput} />
-            ) : (
-               <Input
-                  placeholder={placeholder}
-                  onChange={handleChange}
-                  value={value}
-                  onInput={onInput}
-               />
-            )}
+            <Input
+               placeholder={placeholder}
+               onChange={handleChange}
+               value={value}
+               onInput={onInput}
+            />
 
             <Button
                title={'Continue'}
