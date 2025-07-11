@@ -5,11 +5,6 @@ import { Otp } from '../components/Otp'
 export const VerifyUser = ({}) => {
    const { state } = useLocation()
    const email = state?.email || ''
-   const disabled = false
-
-   const onInput = (e) => {
-      e.target.value = e.target.value.slice(0, 1)
-   }
 
    return (
       <div className="flex justify-center items-center min-h-screen px-4">
@@ -27,14 +22,8 @@ export const VerifyUser = ({}) => {
                </p>
             </div>
             <div>
-               <Otp onInput={onInput} />
+               <Otp number={6} />
             </div>
-            <button
-               type="button"
-               className={`mt-8 ${disabled ? 'bg-blue-200 text-white' : 'bg-green-400 text-black'} px-1 py-2 rounded text-sm w-[300px] ml-6`}
-            >
-               Verify
-            </button>
          </div>
       </div>
    )
