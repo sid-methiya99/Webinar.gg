@@ -17,7 +17,7 @@ export const VerifyUser = ({}) => {
                <p className="text-[14px] text-gray-100 text-center max-w-[500px]">
                   <span>
                      Please enter the verification code sent to your email id{' '}
-                     <span className="font-bold text-blue-600">{email}</span>
+                     <span className="font-bold text-gray-100">{email}</span>
                   </span>
                </p>
             </div>

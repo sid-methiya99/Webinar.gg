@@ -1,6 +1,6 @@
 import { SubOtpComp } from './SubOtpComp'
-
 import { useRef, useState } from 'react'
+
 export const Otp = ({ onInput, number }) => {
    const ref = useRef(Array(number).fill(0))
    const [disabled, setDisabled] = useState(0)
@@ -21,12 +21,20 @@ export const Otp = ({ onInput, number }) => {
                      setDisabled(index + 1)
                   }}
                   goBack={() => {
+                     console.log(index)
                      if (index === 0) {
                         return
                      }
                      ref.current[index - 1].focus()
                      setDisabled(index - 1)
                   }}
+                  onFocus={() => setDisabled(index)}
+                  onClear={() => {
+                     // When clearing, stay on the same index
+                     setDisabled(index)
+                  }}
+                  index={index}
+                  number={number}
                />
             ))}
          </div>

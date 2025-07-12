@@ -1,43 +1,46 @@
-import { useState } from 'react'
+// SubOtpComp.jsx
+import { useOtpStore } from '../state/useOtpStore.js'
 
-export const SubOtpComp = ({ reference, onDone, goBack }) => {
-   const [input, setInput] = useState('')
+export const SubOtpComp = ({ reference, onDone, goBack, index }) => {
+   const otp = useOtpStore((s) => s.otp[index]) // only this digit
+   const setDigit = useOtpStore((s) => s.setDigit)
+   const clear = useOtpStore((s) => s.clearDigit)
 
-   const onInput = (e) => {
-      const value = e.target.value.slice(0, 1)
-      setInput(value)
-      if (value) {
-         onDone()
-      }
+   // ② Handle input
+   const handleInput = (e) => {
+      const digit = e.target.value.slice(0, 1)
+      setDigit(index, digit) // ← Zustand setter (safe)
+
+      if (digit) onDone()
    }
 
-   const onKeyDown = (e) => {
-      if (e.key === 'Backspace') {
-         if (input === '') {
-            // If input is already empty, go back to previous field
-            goBack()
-         } else {
-            // If input has value, clear it
-            setInput('')
-         }
+   // ③ Handle backspace
+   const handleKeyDown = (e) => {
+      if (e.key !== 'Backspace') return
+
+      if (otp === '') {
+         goBack() // jump to previous box
+      } else {
+         clear(index) // clear current digit
       }
    }
 
    return (
       <div className="flex justify-center mr-1">
          <input
-            type="number"
-            min="0"
-            max="9"
             ref={reference}
-            className="h-[50px] w-[40px] bg-blue-500 rounded-xl text-center appearance-none 
-             [&::-webkit-outer-spin-button]:appearance-none 
-             [&::-webkit-inner-spin-button]:appearance-none 
-             [moz-appearance:textfield]
-       outline-none text-white"
-            onInput={onInput}
-            onKeyDown={onKeyDown}
-            value={input}
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            maxLength={1}
+            value={otp || ''}
+            onInput={handleInput}
+            onKeyDown={handleKeyDown}
+            className="h-[50px] w-[40px] bg-blue-500 rounded-xl text-center
+                   text-white outline-none appearance-none
+                   [&::-webkit-outer-spin-button]:appearance-none
+                   [&::-webkit-inner-spin-button]:appearance-none
+                   [moz-appearance:textfield]"
          />
       </div>
    )
